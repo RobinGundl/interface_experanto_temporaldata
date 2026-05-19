@@ -1,0 +1,17 @@
+defaults:
+  - defaults.yaml
+  - model: poyo_1.3M
+  - _self_
+
+dataset:
+  _target_: datasets.interface_dataset.MyDataset
+
+wandb:
+  enable: false
+  run_name: pupil_decoder
+
+batch_size: 1
+eval_batch_size: 1
+epochs: 3
+num_workers: 0
+precision: 32
