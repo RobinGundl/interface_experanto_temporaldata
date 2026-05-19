@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "interface-experanto-temporaldata"
+version = "0.1.0"
+description = "Conversion pipeline between Experanto and Temporaldata."
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [
+  { name = "Robin Gundlach" }
+]
+dependencies = [
+  "numpy>=2.2",
+  "scipy>=1.17",
+  "opencv-python>=4.11",
+  "temporaldata>=0.1.4",
+  "experanto>=0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+  "ipykernel",
+  "nbformat",
+  "nbconvert",
+]
+
+[tool.setuptools]
+packages = ["Interface"]
