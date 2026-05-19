@@ -27,4 +27,4 @@ dev = [
 ]
 
 [tool.setuptools]
-packages = ["Interface"]
+packages = ["interface_experanto_temporaldata"]
