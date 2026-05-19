@@ -6,7 +6,7 @@ import temporaldata as td
 
 from experanto.experiment import Experiment
 from experanto.configs import DEFAULT_MODALITY_CONFIG
-from Interface import Interface
+from interface_experanto_temporaldata import Interface
 
 
 BASE_DIR = Path(__file__).resolve().parent
