@@ -131,7 +131,8 @@ class Interface:
         if self.custom_fns is not None and len(self.custom_fns) > 0:
             for key in self.custom_fns.keys():
                 if ((isinstance(td_object, key[0]) or key[0] is None) and
-                    (object_name == key[1] or key[1] is None)):
+                    (object_name == key[1] or key[1] is None) and not
+                    (key[0] is None and key[1] is None)):
                     fn = key
                     custom_fn_active = True
 
@@ -216,7 +217,8 @@ class Interface:
             if self.custom_fns is not None and len(self.custom_fns) > 0:
                 for key in self.custom_fns.keys():
                     if ((isinstance(interpolator, key[0]) or key[0] is None) and 
-                        (device_name == key[1] or key[1] is None)):
+                        (device_name == key[1] or key[1] is None) and not
+                        (key[0] is None and key[1] is None)):
                         fn = key
                         custom_fn_active = True
 
