@@ -21,8 +21,8 @@ from .InterfaceExperiment import InterfaceExperiment
 
 
 # custom function for conversion from temporaldata screen data to experanto screen data
-# use it with interface_example.custom_fns = {(td.Data, "screen"): screen}
-def screen(td_object, object_name):
+# use it with interface_example.custom_fns = {(td.Data, "screen"): screen_fn}
+def screen_fn(td_object, object_name):
     return InterfaceScreenInterpolator(data=td_object)
 
 class Interface:
@@ -130,7 +130,8 @@ class Interface:
         custom_fn_active = False
         if self.custom_fns is not None and len(self.custom_fns) > 0:
             for key in self.custom_fns.keys():
-                if isinstance(td_object, key[0]) and object_name == key[1]:
+                if ((isinstance(td_object, key[0]) or key[0] is None) and
+                    (object_name == key[1] or key[1] is None)):
                     fn = key
                     custom_fn_active = True
 
@@ -187,7 +188,7 @@ class Interface:
             # ["movement_phases", "reach_period", "test_mask"]
             attributes = device_name.split(".") 
 
-            # the following if clause is only needed to revert the data, 
+            # the following if statement is only needed to revert the data, 
             # that already went through the default td->exp conversion
             if len(attributes) > 1:
 
@@ -214,7 +215,8 @@ class Interface:
             custom_fn_active = False
             if self.custom_fns is not None and len(self.custom_fns) > 0:
                 for key in self.custom_fns.keys():
-                    if isinstance(interpolator, key[0]) and device_name == key[1]:
+                    if ((isinstance(interpolator, key[0]) or key[0] is None) and 
+                        (device_name == key[1] or key[1] is None)):
                         fn = key
                         custom_fn_active = True
 
@@ -240,7 +242,7 @@ class Interface:
                     new_regular_timeseries._phase_shifts = interpolator._phase_shifts
                 new_td_data.set_nested_attribute(device_name, new_regular_timeseries)
 
-                # this if is only for InterfaceSequenceInterpolator instances
+                # this if statement is only for InterfaceSequenceInterpolator instances
                 if hasattr(interpolator, "meta"):
                     for attribute, value in interpolator.meta.items():
                         nested_attribute = device_name + "." + attribute
@@ -300,7 +302,7 @@ class Interface:
                 )
                 new_td_data.set_nested_attribute(device_name, new_irregular_timeseries)
 
-                # this if is only for InterfaceSpikeInterpolator instances
+                # this if statement is only for InterfaceSpikeInterpolator instances
                 if hasattr(interpolator, "meta"):
                     for attribute, value in interpolator.meta.items():
                         nested_attribute = device_name + "." + attribute
@@ -334,7 +336,10 @@ class Interface:
                 # creating the Interval object and adding it to the td.Data object
                 Interval_name = device_name.rsplit(".", 1)[0]
 
-                # e.g. hold_period != hold_period.test_mask
+                # the following if statement is normally
+                # for InterfaceTimeIntervalInterpolator instances
+                # e.g. Interval_name = hold_period
+                #      device_name = hold_period.test_mask
                 if Interval_name != device_name:
                     # if the Interval does not exist yet, we have to create the start and end times
                     if not new_td_data.has_nested_attribute(Interval_name):
