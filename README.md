@@ -27,6 +27,6 @@ example_conversion_2 = example_dict.process_as_experanto(
 )
 ```
 
-## Example Data
-`pipeline_example.h5` in `example_pipelines/Temporaldata/data/processed/test` contains transformed sample data derived from the `sensorium-competition/experanto` project, which is licensed under the MIT License.
+## Data
+This package uses data from the Sensorium Competition (see: https://github.com/sensorium-competition) and brainsets (see: https://brainsets.readthedocs.io/en/latest/_generated/brainsets.datasets.PerichMillerPopulation2018.html)
 
